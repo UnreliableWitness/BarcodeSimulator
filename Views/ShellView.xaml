@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="BarcodeSimulator.Ui.Views.ShellView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:cal="http://www.caliburnproject.org"
+             mc:Ignorable="d" 
+             Height="400" Width="250" Background="White">
+    <DockPanel>
+
+        <Border Padding="5,0,0,3" DockPanel.Dock="Top" Background="Crimson">
+            <TextBlock Foreground="White" FontSize="16" Text="Barcode Simulator"></TextBlock>
+        </Border>
+        <DockPanel Dock="Top" Margin="5">
+            <Label ToolTip="the barcode that you want to simulate" DockPanel.Dock="Top" Content="Barcode:"></Label>
+            <TextBox Margin="0,0,0,5" DockPanel.Dock="Top" x:Name="Barcode"></TextBox>
+
+            <Button ToolTip="add the barcode to the sequence, when pressing the hotkey the sequence will be played" DockPanel.Dock="Top" 
+                    Content="Add to Sequence" x:Name="AddSequence"></Button>
+
+            <DockPanel DockPanel.Dock="Bottom" LastChildFill="False">
+                <Button DockPanel.Dock="Left" Content="Save" x:Name="Save" Margin="0,0,5,0"></Button>
+                <Button DockPanel.Dock="Left" Content="Load" x:Name="Load"></Button>
+                <Button DockPanel.Dock="Right" Content="Clear" x:Name="Clear"></Button>
+            </DockPanel>
+
+            <TextBlock DockPanel.Dock="Bottom" Margin="0,0,0,5" Foreground="ForestGreen" Text="start by pressing 'shift + insert'"></TextBlock>
+
+            <Label ToolTip="the speed at which the barcodes are being simulated" DockPanel.Dock="Top" Content="Play speed (ms):"></Label>
+            <TextBox Margin="0,0,0,5" DockPanel.Dock="Top" x:Name="Speed"></TextBox>
+            
+            <Label ToolTip="the barcodes that will be simulated - top to bottom" DockPanel.Dock="Top"
+                    Content="Sequences:"></Label>
+            <ListBox Margin="0,0,0,5" x:Name="BarcodeSequenceCollection" DockPanel.Dock="Top">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel>
+                            <Button DockPanel.Dock="Left" Margin="0,0,5,0" Content="Remove" cal:Message.Attach="[Click]=[Remove($dataContext)]"></Button>
+                            <TextBlock DockPanel.Dock="Right" Text="{Binding Barcode}"></TextBlock>
+                        </DockPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </DockPanel>
+    </DockPanel>
+</UserControl>
