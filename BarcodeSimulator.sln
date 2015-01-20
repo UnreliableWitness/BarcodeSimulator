@@ -5,8 +5,6 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarcodeSimulator.Ui", "BarcodeSimulator.Ui.csproj", "{13D6F155-C22C-4F24-8F57-54E2EE973BBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarcodeSimulator.Tests", "..\BarcodeSimulator.Tests\BarcodeSimulator.Tests.csproj", "{5FBCC7E7-D21D-468A-A89D-CD1B0E3A9451}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{2789A71C-E185-4FE8-B4BB-C68ED484586C}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\NuGet.Config = .nuget\NuGet.Config
@@ -24,10 +22,6 @@ Global
 		{13D6F155-C22C-4F24-8F57-54E2EE973BBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13D6F155-C22C-4F24-8F57-54E2EE973BBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13D6F155-C22C-4F24-8F57-54E2EE973BBF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5FBCC7E7-D21D-468A-A89D-CD1B0E3A9451}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5FBCC7E7-D21D-468A-A89D-CD1B0E3A9451}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5FBCC7E7-D21D-468A-A89D-CD1B0E3A9451}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5FBCC7E7-D21D-468A-A89D-CD1B0E3A9451}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
