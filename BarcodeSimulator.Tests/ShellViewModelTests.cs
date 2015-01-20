@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using BarcodeSimulator.Ui;
+using BarcodeSimulator.Ui.Services;
 using BarcodeSimulator.Ui.ViewModels;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -12,7 +13,7 @@ namespace BarcodeSimulator.Tests
         [TestMethod]
         public void NewBarcodeShouldBeAddedToList()
         {
-            var shellVm = new ShellViewModel(A.Fake<IBarcodeSequencer>());
+            var shellVm = new ShellViewModel(A.Fake<IBarcodeSequencer>(), A.Fake<IFileDialogService>());
 
             shellVm.Barcode = "0001";
             shellVm.AddSequence();
@@ -23,7 +24,7 @@ namespace BarcodeSimulator.Tests
         [TestMethod]
         public void NewSpeedShouldBeSet()
         {
-            var shellVm = new ShellViewModel(A.Fake<IBarcodeSequencer>());
+            var shellVm = new ShellViewModel(A.Fake<IBarcodeSequencer>(), A.Fake<IFileDialogService>());
 
             shellVm.Speed = 2000;
 
@@ -33,7 +34,7 @@ namespace BarcodeSimulator.Tests
         [TestMethod]
         public void RemoveBarcodeShouldRemoveFromList()
         {
-            var shellVm = new ShellViewModel(A.Fake<IBarcodeSequencer>());
+            var shellVm = new ShellViewModel(A.Fake<IBarcodeSequencer>(), A.Fake<IFileDialogService>());
 
             shellVm.Barcode = "0001";
             shellVm.AddSequence();
