@@ -83,6 +83,8 @@
     <Compile Include="BarcodeSequencer.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="IBarcodeSequencer.cs" />
+    <Compile Include="Services\FileDialogService.cs" />
+    <Compile Include="Services\IFileDialogService.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="Views\ShellView.xaml.cs">
       <DependentUpon>ShellView.xaml</DependentUpon>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using WindowsInput;
+using BarcodeSimulator.Ui.Services;
 using BarcodeSimulator.Ui.ViewModels;
 using Caliburn.Micro;
 using Ninject;
@@ -20,6 +21,7 @@ namespace BarcodeSimulator.Ui
             _kernel.Bind<IEventAggregator>().To<EventAggregator>().InSingletonScope();
             _kernel.Bind<IBarcodeSequencer>().To<BarcodeSequencer>();
             _kernel.Bind<IInputSimulator>().To<InputSimulator>();
+            _kernel.Bind<IFileDialogService>().To<FileDialogService>();
             _kernel.Bind<ShellViewModel>().To<ShellViewModel>();
         }
 

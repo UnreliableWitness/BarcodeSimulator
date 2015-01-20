@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Windows.Input;
+using BarcodeSimulator.Ui.Services;
 using Caliburn.Micro;
 using NHotkey;
 using NHotkey.Wpf;
@@ -12,6 +13,7 @@ namespace BarcodeSimulator.Ui.ViewModels
     {
         #region fields
         private readonly IBarcodeSequencer _barcodeSequencer;
+        private readonly IFileDialogService _fileDialogService;
         private string _barcode;
         private int _speed;
         private readonly CancellationTokenSource _cancellationTokenSource;
@@ -46,10 +48,11 @@ namespace BarcodeSimulator.Ui.ViewModels
         #endregion bindings
 
         #region ctor
-        public ShellViewModel(IBarcodeSequencer barcodeSequencer)
+        public ShellViewModel(IBarcodeSequencer barcodeSequencer, IFileDialogService fileDialogService)
         {
             BarcodeSequenceCollection = new BindableCollection<BarcodeSequence>();
             Speed = 1000;
+            _fileDialogService = fileDialogService;
             _barcodeSequencer = barcodeSequencer;
             _cancellationTokenSource = new CancellationTokenSource();
         }
@@ -92,45 +95,23 @@ namespace BarcodeSimulator.Ui.ViewModels
 
         public void Save()
         {
-            var dlg = new Microsoft.Win32.SaveFileDialog();
-            dlg.FileName = "barcode-playlist"; // Default file name
-            dlg.DefaultExt = ".text"; // Default file extension
-            dlg.Filter = "Text documents (.txt)|*.txt"; // Filter files by extension 
-
-            // Show save file dialog box
-            bool? result = dlg.ShowDialog();
-
-            // Process save file dialog box results 
-            if (result == true)
+            var fileName = _fileDialogService.SaveFileDialog("barcode-playlist", ".text", "Text documents (.txt)|*.txt");
+            if (!string.IsNullOrEmpty(fileName))
             {
-                // Save document 
-                string filename = dlg.FileName;
-                File.WriteAllLines(filename, BarcodeSequenceCollection.Select(b=>b.Barcode));
+                File.WriteAllLines(fileName, BarcodeSequenceCollection.Select(b => b.Barcode));
             }
         }
 
         public void Load()
         {
-            var dlg = new Microsoft.Win32.OpenFileDialog();
-            dlg.FileName = "barcode-playlist"; // Default file name
-            dlg.DefaultExt = ".txt"; // Default file extension
-            dlg.Filter = "Text documents (.txt)|*.txt"; // Filter files by extension 
+            var fileName = _fileDialogService.LoadFileDialog("barcode-playlist", ".txt", "Text documents (.txt)|*.txt");
 
-            // Show open file dialog box
-            bool? result = dlg.ShowDialog();
-
-            // Process open file dialog box results 
-            if (result == true)
-            {
-                // Open document 
-                string filename = dlg.FileName;
-                var lines = File.ReadAllLines(filename);
-                BarcodeSequenceCollection.Clear();
+            var lines = File.ReadAllLines(fileName);
+            BarcodeSequenceCollection.Clear();
                 
-                foreach (var line in lines)
-                {
-                    BarcodeSequenceCollection.Add(new BarcodeSequence{Barcode = line});
-                }
+            foreach (var line in lines)
+            {
+                BarcodeSequenceCollection.Add(new BarcodeSequence{Barcode = line});
             }
         }
 
