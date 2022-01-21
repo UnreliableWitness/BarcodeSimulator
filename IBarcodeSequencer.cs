@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using WindowsInput.Native;
 
 namespace BarcodeSimulator.Ui
 {
@@ -14,7 +15,7 @@ namespace BarcodeSimulator.Ui
         /// Emits a single barcode
         /// </summary>
         /// <param name="sequence">The sequence.</param>
-        void EmitBarcodes(BarcodeSequence sequence);
+        void EmitBarcodes(BarcodeSequence sequence, VirtualKeyCode endWith);
 
         /// <summary>
         /// Emits a collection of barcodes at a set interval.
@@ -23,6 +24,6 @@ namespace BarcodeSimulator.Ui
         /// <param name="speed">The speed in milliseconds.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
-        Task EmitBarcodesAsync(List<BarcodeSequence> sequences, int speed, CancellationToken cancellationToken);
+        Task EmitBarcodesAsync(List<BarcodeSequence> sequences, VirtualKeyCode endWith, int speed, CancellationToken cancellationToken);
     }
 }

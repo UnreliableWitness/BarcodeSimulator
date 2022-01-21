@@ -4,6 +4,7 @@ using BarcodeSimulator.Ui.Services;
 using BarcodeSimulator.Ui.ViewModels;
 using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using WindowsInput.Native;
 
 namespace BarcodeSimulator.Tests
 {
@@ -29,6 +30,16 @@ namespace BarcodeSimulator.Tests
             shellVm.Speed = 2000;
 
             Assert.AreEqual(shellVm.Speed, 2000);
+        }
+
+        [TestMethod]
+        public void NewEndWithShouldBeSet()
+        {
+            var shellVm = new ShellViewModel(A.Fake<IBarcodeSequencer>(), A.Fake<IFileDialogService>());
+
+            shellVm.EndWith = VirtualKeyCode.TAB;
+
+            Assert.AreEqual(shellVm.EndWith, VirtualKeyCode.TAB);
         }
 
         [TestMethod]

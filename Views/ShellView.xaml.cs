@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WindowsInput.Native;
 
 namespace BarcodeSimulator.Ui.Views
 {
@@ -23,6 +24,7 @@ namespace BarcodeSimulator.Ui.Views
         public ShellView()
         {
             InitializeComponent();
+            EndWith.ItemsSource = Enum.GetValues(typeof(VirtualKeyCode)).Cast<VirtualKeyCode>();
         }
     }
 }

@@ -28,7 +28,10 @@
 
             <Label ToolTip="the speed at which the barcodes are being simulated" DockPanel.Dock="Top" Content="Play speed (ms):"></Label>
             <TextBox Margin="0,0,0,5" DockPanel.Dock="Top" x:Name="Speed"></TextBox>
-            
+
+            <Label ToolTip="the key press end event" DockPanel.Dock="Top" Content="End With:"></Label>
+            <ComboBox Margin="0,0,0,5" DockPanel.Dock="Top" Name="EndWith" SelectedItem="{Binding EndWith}"></ComboBox>
+
             <Label ToolTip="the barcodes that will be simulated - top to bottom" DockPanel.Dock="Top"
                     Content="Sequences:"></Label>
             <ListBox Margin="0,0,0,5" x:Name="BarcodeSequenceCollection" DockPanel.Dock="Top">

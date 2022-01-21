@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using WindowsInput;
+using WindowsInput.Native;
 
 namespace BarcodeSimulator.Ui
 {
@@ -14,7 +15,7 @@ namespace BarcodeSimulator.Ui
             _inputSimilator = inputSimulator;
         }
 
-        public void EmitBarcodes(BarcodeSequence sequence)
+        public void EmitBarcodes(BarcodeSequence sequence, VirtualKeyCode endWith)
         {
             const char stx = (char)0x02;
             const char etx = (char)0x03;
@@ -25,16 +26,17 @@ namespace BarcodeSimulator.Ui
                 _inputSimilator.Keyboard.TextEntry(character);
             }
             _inputSimilator.Keyboard.TextEntry(etx);
+            _inputSimilator.Keyboard.KeyPress(endWith);
         }
 
-        public async Task EmitBarcodesAsync(List<BarcodeSequence> sequences, int speed, CancellationToken cancellationToken)
+        public async Task EmitBarcodesAsync(List<BarcodeSequence> sequences, VirtualKeyCode endWith, int speed, CancellationToken cancellationToken)
         {
             await Task.Run(async () =>
             {
                 foreach (var barcodeSequence in sequences)
                 {
                     cancellationToken.ThrowIfCancellationRequested();
-                    EmitBarcodes(barcodeSequence);
+                    EmitBarcodes(barcodeSequence, endWith);
                     await Task.Delay(speed, cancellationToken);
                 }
             }, cancellationToken);

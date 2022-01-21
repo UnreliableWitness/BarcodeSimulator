@@ -6,6 +6,7 @@ using BarcodeSimulator.Ui.Services;
 using Caliburn.Micro;
 using NHotkey;
 using NHotkey.Wpf;
+using WindowsInput.Native;
 
 namespace BarcodeSimulator.Ui.ViewModels
 {
@@ -16,6 +17,7 @@ namespace BarcodeSimulator.Ui.ViewModels
         private readonly IFileDialogService _fileDialogService;
         private string _barcode;
         private int _speed;
+        private VirtualKeyCode _endWith;
         private readonly CancellationTokenSource _cancellationTokenSource;
 
         #endregion
@@ -30,6 +32,17 @@ namespace BarcodeSimulator.Ui.ViewModels
                 if (value == _speed) return;
                 _speed = value;
                 NotifyOfPropertyChange(() => Speed);
+            }
+        }
+
+        public VirtualKeyCode EndWith
+        {
+            get => _endWith;
+            set
+            {
+                if (value == _endWith) return;
+                _endWith = value;
+                NotifyOfPropertyChange(() => _endWith);
             }
         }
 
@@ -52,6 +65,7 @@ namespace BarcodeSimulator.Ui.ViewModels
         {
             BarcodeSequenceCollection = new BindableCollection<BarcodeSequence>();
             Speed = 1000;
+            EndWith = VirtualKeyCode.RETURN;
             _fileDialogService = fileDialogService;
             _barcodeSequencer = barcodeSequencer;
             _cancellationTokenSource = new CancellationTokenSource();
@@ -71,9 +85,9 @@ namespace BarcodeSimulator.Ui.ViewModels
             if (BarcodeSequenceCollection.Any())
             {
                 if(BarcodeSequenceCollection.Count == 1)
-                    _barcodeSequencer.EmitBarcodes(BarcodeSequenceCollection.Single());
+                    _barcodeSequencer.EmitBarcodes(BarcodeSequenceCollection.Single(), EndWith);
                 else
-                    _barcodeSequencer.EmitBarcodesAsync(BarcodeSequenceCollection.ToList(), Speed, token).ConfigureAwait(false);
+                    _barcodeSequencer.EmitBarcodesAsync(BarcodeSequenceCollection.ToList(), EndWith, Speed, token).ConfigureAwait(false);
             }
         }
 
