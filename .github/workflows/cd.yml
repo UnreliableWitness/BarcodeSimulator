@@ -14,8 +14,8 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
+  # This workflow contains a single job called "release"
+  release:
     # The type of runner that the job will run on
     runs-on: windows-latest
 
@@ -46,7 +46,7 @@ jobs:
            
       - name: Create Artifacts
         run: |
-          powershell Compress-7Zip "Release" -ArchiveFileName "BarcodeSimulator-AnyCPU.zip" -Format Zip
+          powershell Compress-7Zip "bin\Release" -ArchiveFileName "BarcodeSimulator-AnyCPU.zip" -Format Zip
           
       - name: Create Release
         id: create_release
@@ -68,9 +68,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./BarcodeSimulator-AnyCPU.zip
+          asset_path: .\BarcodeSimulator-AnyCPU.zip
           asset_name: BarcodeSimulator-AnyCPU.zip
           asset_content_type: application/zip
+          
            
        
        
